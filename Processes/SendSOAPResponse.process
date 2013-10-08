@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://xmlns.tibco.com/encodings/mime" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx2="http://xmlns.example.com/1380349295906" xmlns:pfx="http://xmlns.example.com/1380171375593" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <wsdl:import namespace="http://xmlns.example.com/1380171375593" location="/WSDL.wsdl"/>
+    <wsdl:import namespace="http://xmlns.example.com/1380349295906" location="/WSDL/AbstractWSDL.wsdl"/>
+    <pd:name>Processes/SendSOAPResponse.process</pd:name>
+    <pd:startName>SOAPEventSource</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="SOAPEventSource">
+        <pd:type>com.tibco.plugin.soap.SOAPEventSource</pd:type>
+        <pd:resourceType>ae.activities.SOAPEventSourceUI</pd:resourceType>
+        <pd:x>110</pd:x>
+        <pd:y>93</pd:y>
+        <config>
+            <service>pfx2:PortType</service>
+            <wsdlNamespaceRoot>http://xmlns.example.com/1380349295906/OperationImpl</wsdlNamespaceRoot>
+            <operation>Operation</operation>
+            <portAddressPrefix/>
+            <operationStyle>rpc</operationStyle>
+            <soapUse>encoded</soapUse>
+            <inputNamespace>http://InputMessageNamespace</inputNamespace>
+            <outputNamespace>http://OutputMessageNamespace</outputNamespace>
+            <faultNamespace>http://FaultMessageNamespace</faultNamespace>
+            <embedWsdlComponents>true</embedWsdlComponents>
+            <embedSchemaComponents>true</embedSchemaComponents>
+            <soapAction>/Processes/SendSOAPResponse</soapAction>
+            <sharedChannel>/Connections/JMS_Connection.sharedjmscon</sharedChannel>
+            <sharedChannels>
+                <jmsChannel>
+                    <JMSDestinationType>queue</JMSDestinationType>
+                    <JMSAcknowledgementMode>1</JMSAcknowledgementMode>
+                    <JMSTo>queue.DevOpsDemo</JMSTo>
+                    <JMSMessageType>Text</JMSMessageType>
+                </jmsChannel>
+            </sharedChannels>
+            <soapVersion>SOAP 1.1</soapVersion>
+            <inputAttachmentBindings/>
+            <outputAttachmentBindings/>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>598</pd:endX>
+    <pd:endY>96</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1380171569984</pd:targetNamespace>
+    <pd:activity name="Java Code">
+        <pd:type>com.tibco.plugin.java.JavaActivity</pd:type>
+        <pd:resourceType>ae.javapalette.javaActivity</pd:resourceType>
+        <pd:x>269</pd:x>
+        <pd:y>94</pd:y>
+        <config>
+            <javaArchive>/AliasLibrary.aliaslib</javaArchive>
+            <fileName>SendSOAPResponseJavaCode</fileName>
+            <packageName>Processes.SendSOAPResponse</packageName>
+            <fullsource>package Processes.SendSOAPResponse;
+import java.util.*;
+import java.io.*;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+public class SendSOAPResponseJavaCode{
+/****** START SET/GET METHOD, DO NOT MODIFY *****/
+	protected String FileName = "";
+	protected String FileLocation = "";
+	protected String FileType = "";
+	protected int Size = 0;
+	protected String LastModified = "";
+	protected String action = "";
+	protected String source_filename = "";
+	protected String dest_filename = "";
+	protected int updates = 0;
+	public String getFileName() {
+		return FileName;
+	}
+	public void setFileName(String val) {
+		FileName = val;
+	}
+	public String getFileLocation() {
+		return FileLocation;
+	}
+	public void setFileLocation(String val) {
+		FileLocation = val;
+	}
+	public String getFileType() {
+		return FileType;
+	}
+	public void setFileType(String val) {
+		FileType = val;
+	}
+	public int getSize() {
+		return Size;
+	}
+	public void setSize(int val) {
+		Size = val;
+	}
+	public String getLastModified() {
+		return LastModified;
+	}
+	public void setLastModified(String val) {
+		LastModified = val;
+	}
+	public String getaction() {
+		return action;
+	}
+	public void setaction(String val) {
+		action = val;
+	}
+	public String getsource_filename() {
+		return source_filename;
+	}
+	public void setsource_filename(String val) {
+		source_filename = val;
+	}
+	public String getdest_filename() {
+		return dest_filename;
+	}
+	public void setdest_filename(String val) {
+		dest_filename = val;
+	}
+	public int getupdates() {
+		return updates;
+	}
+	public void setupdates(int val) {
+		updates = val;
+	}
+/****** END SET/GET METHOD, DO NOT MODIFY *****/
+	public SendSOAPResponseJavaCode() {
+	}
+	public void invoke() throws Exception {
+/* Available Variables: DO NOT MODIFY
+	In  : String FileName
+	In  : String FileLocation
+	In  : String FileType
+	In  : int Size
+	In  : String LastModified
+	In  : String action
+	In  : String source_filename
+	In  : String dest_filename
+	Out : int updates
+* Available Variables: DO NOT MODIFY *****/
+
+FileOutputStream fileout=null;
+		FileInputStream fstream = null;
+		try{
+			fstream = new FileInputStream(source_filename);
+			Workbook wb =WorkbookFactory.create(fstream);
+			Sheet sheet =(Sheet)wb.getSheetAt(0);
+			Row row = (Row)(sheet).createRow(sheet.getLastRowNum()+1);
+			for(int i=0;i&lt;6;i++)
+			{
+				updates ++;
+				Cell cell=row.createCell(i);
+				if(i==0)
+				   cell.setCellValue(FileName);
+				else if(i==1)
+					cell.setCellValue(FileLocation);
+				else if(i==2)
+					cell.setCellValue(FileType);
+				else if(i==3)
+					cell.setCellValue(Size);
+				else if(i==4)
+					cell.setCellValue(LastModified);
+				else if(i==5)
+					cell.setCellValue(action);
+			}
+						
+			updates=updates;
+			fileout=new FileOutputStream(dest_filename);
+			wb.write(fileout);
+			
+			}
+			catch (Exception e)
+			{
+				System.err.println("Error: "+e.getMessage());
+			}
+			finally
+			{
+				try
+				{
+					fileout.close();
+					fstream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}}
+}
+</fullsource>
+            <outputData>
+                <row>
+                    <fieldName>updates</fieldName>
+                    <fieldType>int</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </outputData>
+            <inputData>
+                <row>
+                    <fieldName>FileName</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>FileLocation</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>FileType</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>Size</fieldName>
+                    <fieldType>int</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>LastModified</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>action</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>source_filename</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+                <row>
+                    <fieldName>dest_filename</fieldName>
+                    <fieldType>string</fieldType>
+                    <fieldRequired>optional</fieldRequired>
+                </row>
+            </inputData>
+            <byteCode>
+                <class>
+                    <name>SendSOAPResponseJavaCode</name>
+                    <byteCode>yv66vgAAADIApAkAJQBcCQAlAF0JACUAXgkAJQBfCQAlAGAJACUAYQkAJQBiCQAlAGMJACUAZAoAJgBlCABmBwBnCgAMAGgKAGkAagsAawBsCwBtAG4LAG0AbwsAcABxCwByAHMLAHIAdAcAdQoAFQBoCwBrAHYKABUAdwoADAB3BwB4CgAaAHkHAHoJAHsAfAcAfQoAHgBlCAB+CgAeAH8KABwAgAoAHgCBCgCCAIMHAIQHAIUBAAhGaWxlTmFtZQEAEkxqYXZhL2xhbmcvU3RyaW5nOwEADEZpbGVMb2NhdGlvbgEACEZpbGVUeXBlAQAEU2l6ZQEAAUkBAAxMYXN0TW9kaWZpZWQBAAZhY3Rpb24BAA9zb3VyY2VfZmlsZW5hbWUBAA1kZXN0X2ZpbGVuYW1lAQAHdXBkYXRlcwEAC2dldEZpbGVOYW1lAQAUKClMamF2YS9sYW5nL1N0cmluZzsBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQALc2V0RmlsZU5hbWUBABUoTGphdmEvbGFuZy9TdHJpbmc7KVYBAA9nZXRGaWxlTG9jYXRpb24BAA9zZXRGaWxlTG9jYXRpb24BAAtnZXRGaWxlVHlwZQEAC3NldEZpbGVUeXBlAQAHZ2V0U2l6ZQEAAygpSQEAB3NldFNpemUBAAQoSSlWAQAPZ2V0TGFzdE1vZGlmaWVkAQAPc2V0TGFzdE1vZGlmaWVkAQAJZ2V0YWN0aW9uAQAJc2V0YWN0aW9uAQASZ2V0c291cmNlX2ZpbGVuYW1lAQASc2V0c291cmNlX2ZpbGVuYW1lAQAQZ2V0ZGVzdF9maWxlbmFtZQEAEHNldGRlc3RfZmlsZW5hbWUBAApnZXR1cGRhdGVzAQAKc2V0dXBkYXRlcwEABjxpbml0PgEAAygpVgEABmludm9rZQEADVN0YWNrTWFwVGFibGUHAIQHAHUHAGcHAIYHAIcHAIgHAIkHAHgHAHoHAIoHAIoBAApFeGNlcHRpb25zAQAKU291cmNlRmlsZQEAHVNlbmRTT0FQUmVzcG9uc2VKYXZhQ29kZS5qYXZhDAAnACgMACkAKAwAKgAoDAArACwMAC0AKAwALgAoDAAvACgMADAAKAwAMQAsDABKAEsBAAABABdqYXZhL2lvL0ZpbGVJbnB1dFN0cmVhbQwASgA3BwCLDACMAI0HAIYMAI4AjwcAhwwAkAA9DACRAJIHAIgMAJMAlAcAiQwAlQA3DACVAJYBABhqYXZhL2lvL0ZpbGVPdXRwdXRTdHJlYW0MAJcAmAwAmQBLAQATamF2YS9pby9JT0V4Y2VwdGlvbgwAmgBLAQATamF2YS9sYW5nL0V4Y2VwdGlvbgcAmwwAnACdAQAXamF2YS9sYW5nL1N0cmluZ0J1aWxkZXIBAAdFcnJvcjogDACeAJ8MAKAAMwwAoQAzBwCiDACjADcBADNQcm9jZXNzZXMvU2VuZFNPQVBSZXNwb25zZS9TZW5kU09BUFJlc3BvbnNlSmF2YUNvZGUBABBqYXZhL2xhbmcvT2JqZWN0AQAkb3JnL2FwYWNoZS9wb2kvc3MvdXNlcm1vZGVsL1dvcmtib29rAQAhb3JnL2FwYWNoZS9wb2kvc3MvdXNlcm1vZGVsL1NoZWV0AQAfb3JnL2FwYWNoZS9wb2kvc3MvdXNlcm1vZGVsL1JvdwEAIG9yZy9hcGFjaGUvcG9pL3NzL3VzZXJtb2RlbC9DZWxsAQATamF2YS9sYW5nL1Rocm93YWJsZQEAK29yZy9hcGFjaGUvcG9pL3NzL3VzZXJtb2RlbC9Xb3JrYm9va0ZhY3RvcnkBAAZjcmVhdGUBAD0oTGphdmEvaW8vSW5wdXRTdHJlYW07KUxvcmcvYXBhY2hlL3BvaS9zcy91c2VybW9kZWwvV29ya2Jvb2s7AQAKZ2V0U2hlZXRBdAEAJihJKUxvcmcvYXBhY2hlL3BvaS9zcy91c2VybW9kZWwvU2hlZXQ7AQANZ2V0TGFzdFJvd051bQEACWNyZWF0ZVJvdwEAJChJKUxvcmcvYXBhY2hlL3BvaS9zcy91c2VybW9kZWwvUm93OwEACmNyZWF0ZUNlbGwBACUoSSlMb3JnL2FwYWNoZS9wb2kvc3MvdXNlcm1vZGVsL0NlbGw7AQAMc2V0Q2VsbFZhbHVlAQAEKEQpVgEABXdyaXRlAQAZKExqYXZhL2lvL091dHB1dFN0cmVhbTspVgEABWNsb3NlAQAPcHJpbnRTdGFja1RyYWNlAQAQamF2YS9sYW5nL1N5c3RlbQEAA2VycgEAFUxqYXZhL2lvL1ByaW50U3RyZWFtOwEABmFwcGVuZAEALShMamF2YS9sYW5nL1N0cmluZzspTGphdmEvbGFuZy9TdHJpbmdCdWlsZGVyOwEACmdldE1lc3NhZ2UBAAh0b1N0cmluZwEAE2phdmEvaW8vUHJpbnRTdHJlYW0BAAdwcmludGxuACEAJQAmAAAACQAEACcAKAAAAAQAKQAoAAAABAAqACgAAAAEACsALAAAAAQALQAoAAAABAAuACgAAAAEAC8AKAAAAAQAMAAoAAAABAAxACwAAAAUAAEAMgAzAAEANAAAAB0AAQABAAAABSq0AAGwAAAAAQA1AAAABgABAAAAFQABADYANwABADQAAAAiAAIAAgAAAAYqK7UAAbEAAAABADUAAAAKAAIAAAAYAAUAGQABADgAMwABADQAAAAdAAEAAQAAAAUqtAACsAAAAAEANQAAAAYAAQAAABsAAQA5ADcAAQA0AAAAIgACAAIAAAAGKiu1AAKxAAAAAQA1AAAACgACAAAAHgAFAB8AAQA6ADMAAQA0AAAAHQABAAEAAAAFKrQAA7AAAAABADUAAAAGAAEAAAAhAAEAOwA3AAEANAAAACIAAgACAAAABiortQADsQAAAAEANQAAAAoAAgAAACQABQAlAAEAPAA9AAEANAAAAB0AAQABAAAABSq0AASsAAAAAQA1AAAABgABAAAAJwABAD4APwABADQAAAAiAAIAAgAAAAYqG7UABLEAAAABADUAAAAKAAIAAAAqAAUAKwABAEAAMwABADQAAAAdAAEAAQAAAAUqtAAFsAAAAAEANQAAAAYAAQAAAC0AAQBBADcAAQA0AAAAIgACAAIAAAAGKiu1AAWxAAAAAQA1AAAACgACAAAAMAAFADEAAQBCADMAAQA0AAAAHQABAAEAAAAFKrQABrAAAAABADUAAAAGAAEAAAAzAAEAQwA3AAEANAAAACIAAgACAAAABiortQAGsQAAAAEANQAAAAoAAgAAADYABQA3AAEARAAzAAEANAAAAB0AAQABAAAABSq0AAewAAAAAQA1AAAABgABAAAAOQABAEUANwABADQAAAAiAAIAAgAAAAYqK7UAB7EAAAABADUAAAAKAAIAAAA8AAUAPQABAEYAMwABADQAAAAdAAEAAQAAAAUqtAAIsAAAAAEANQAAAAYAAQAAAD8AAQBHADcAAQA0AAAAIgACAAIAAAAGKiu1AAixAAAAAQA1AAAACgACAAAAQgAFAEMAAQBIAD0AAQA0AAAAHQABAAEAAAAFKrQACawAAAABADUAAAAGAAEAAABFAAEASQA/AAEANAAAACIAAgACAAAABiobtQAJsQAAAAEANQAAAAoAAgAAAEgABQBJAAEASgBLAAEANAAAAHkAAgABAAAAOSq3AAoqEgu1AAEqEgu1AAIqEgu1AAMqA7UABCoSC7UABSoSC7UABioSC7UAByoSC7UACCoDtQAJsQAAAAEANQAAAC4ACwAAAEsABAALAAoADAAQAA0AFgAOABsADwAhABAAJwARAC0AEgAzABMAOABMAAEATABLAAIANAAAAsUAAwAKAAABQAFMAU27AAxZKrQAB7cADU0suAAOTi0DuQAPAgA6BBkEGQS5ABABAARguQARAgA6BQM2BhUGEAaiAJMqWbQACQRgtQAJGQUVBrkAEgIAOgcVBpoAERkHKrQAAbkAEwIApwBlFQYEoAARGQcqtAACuQATAgCnAFEVBgWgABEZByq0AAO5ABMCAKcAPRUGBqAAEhkHKrQABIe5ABQDAKcAKBUGB6AAERkHKrQABbkAEwIApwAUFQYIoAAOGQcqtAAGuQATAgCEBgGn/2wqKrQACbUACbsAFVkqtAAItwAWTC0ruQAXAgArtgAYLLYAGacAUk4ttgAbpwBKTrIAHbsAHlm3AB8SILYAIS22ACK2ACG2ACO2ACQrtgAYLLYAGacAIk4ttgAbpwAaOggrtgAYLLYAGacACjoJGQm2ABsZCL+xAAcA5QDtAPAAGgAEAOUA+AAcARUBHQEgABoABADlASgAAAD4ARUBKAAAASoBMgE1ABoBKAEqASgAAAACADUAAAC+AC8AAABaAAIAWwAEAF0AEABeABUAXwAeAGAAMABhADoAYwBEAGQATwBlAFQAZgBiAGcAaABoAHYAaQB8AGoAigBrAJAAbACfAG0ApQBuALMAbwC5AHAAxABhAMoAcwDSAHQA3gB1AOUAgADpAIEA7QCEAPAAggDxAIMA9QCFAPgAeAD5AHoBFQCAARkAgQEdAIQBIACCASEAgwElAIUBKAB+ASoAgAEuAIEBMgCEATUAggE3AIMBPACEAT8AhQBNAAAAdwAP/wAzAAcHAE4HAE8HAFAHAFEHAFIHAFMBAAD8AC4HAFQTExQT+gAQ+gAF/wAlAAMHAE4HAE8HAFAAAQcAVUcHAFZnBwBVRwcAV/8ADAAJBwBOBwBPBwBQAAAAAAAHAFgAAQcAVQb/AAIAAwcATgcATwcAUAAAAFkAAAAEAAEAHAABAFoAAAACAFs=</byteCode>
+                </class>
+            </byteCode>
+        </config>
+        <pd:inputBindings>
+            <javaCodeActivityInput>
+                <xsl:if test="not(($SOAPEventSource/Operation/fileName/@xsi:nil=(&quot;true&quot;)) or ($SOAPEventSource/Operation/fileName/@xsi:nil=(&quot;1&quot;)))">
+                    <FileName>
+                        <xsl:value-of select="$SOAPEventSource/Operation/fileName"/>
+                    </FileName>
+                </xsl:if>
+                <xsl:if test="not(($SOAPEventSource/Operation/fileLocation/@xsi:nil=(&quot;true&quot;)) or ($SOAPEventSource/Operation/fileLocation/@xsi:nil=(&quot;1&quot;)))">
+                    <FileLocation>
+                        <xsl:value-of select="$SOAPEventSource/Operation/fileLocation"/>
+                    </FileLocation>
+                </xsl:if>
+                <xsl:if test="not(($SOAPEventSource/Operation/fileType/@xsi:nil=(&quot;true&quot;)) or ($SOAPEventSource/Operation/fileType/@xsi:nil=(&quot;1&quot;)))">
+                    <FileType>
+                        <xsl:value-of select="$SOAPEventSource/Operation/fileType"/>
+                    </FileType>
+                </xsl:if>
+                <xsl:if test="not(($SOAPEventSource/Operation/size/@xsi:nil=(&quot;true&quot;)) or ($SOAPEventSource/Operation/size/@xsi:nil=(&quot;1&quot;)))">
+                    <Size>
+                        <xsl:value-of select="$SOAPEventSource/Operation/size"/>
+                    </Size>
+                </xsl:if>
+                <xsl:if test="not(($SOAPEventSource/Operation/lastModified/@xsi:nil=(&quot;true&quot;)) or ($SOAPEventSource/Operation/lastModified/@xsi:nil=(&quot;1&quot;)))">
+                    <LastModified>
+                        <xsl:value-of select="$SOAPEventSource/Operation/lastModified"/>
+                    </LastModified>
+                </xsl:if>
+                <xsl:if test="not(($SOAPEventSource/Operation/action/@xsi:nil=(&quot;true&quot;)) or ($SOAPEventSource/Operation/action/@xsi:nil=(&quot;1&quot;)))">
+                    <action>
+                        <xsl:value-of select="$SOAPEventSource/Operation/action"/>
+                    </action>
+                </xsl:if>
+                <source_filename>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/DevOpsDemo/SourceFilePath"/>
+                </source_filename>
+                <dest_filename>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/DevOpsDemo/DestFilePath"/>
+                </dest_filename>
+            </javaCodeActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SOAPSendReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReplyUI</pd:resourceType>
+        <pd:x>412</pd:x>
+        <pd:y>96</pd:y>
+        <config>
+            <eventSource>SOAPEventSource</eventSource>
+        </config>
+        <pd:inputBindings>
+            <OperationResponse>
+                <updated>
+                    <xsl:choose>
+                        <xsl:when test="exists($Java-Code/javaCodeActivityOutput/updates)">
+                            <xsl:value-of select="$Java-Code/javaCodeActivityOutput/updates"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </updated>
+            </OperationResponse>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Java Code</pd:from>
+        <pd:to>SOAPSendReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPSendReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPEventSource</pd:from>
+        <pd:to>Java Code</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
