@@ -1,9 +1,9 @@
 tibco
 =====
 
-Tibco Demo Application
+## Tibco Demo Application
 
-## Build the config file
+# Build the config file
 ./AppManage -export -out /opt/deploy/TIBCODemo.xml -ear /opt/deploy/TIBCODemo.ear
 
 ## Deploy the app
