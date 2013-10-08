@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/DevOpsDemo/Schemas/Schema.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/DevOpsDemo/Schemas/Schema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Errors">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="message" minOccurs="0"/>
+				<xs:element ref="MessageCode" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="message" type="xs:string"/>
+	<xs:element name="MessageCode" type="xs:string"/>
+</xs:schema>
