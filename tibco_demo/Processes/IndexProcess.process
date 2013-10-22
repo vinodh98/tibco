@@ -15,7 +15,7 @@
         <pd:x>37</pd:x>
         <pd:y>159</pd:y>
         <config>
-            <pollInterval>5</pollInterval>
+            <pollInterval>15</pollInterval>
             <createEvent>true</createEvent>
             <modifyEvent>false</modifyEvent>
             <deleteEvent>true</deleteEvent>
